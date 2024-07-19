@@ -29,6 +29,8 @@ class Server:
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        """Initializes a new Server instance.
+        """
         self.__dataset = None
 
     def dataset(self) -> List[List]:
@@ -43,24 +45,12 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """ Retrieve a page of data from dataset based on
-        pagination parameters.
-        Args:
-            page (int): The page number to retrieve (default is 1).
-            page_size (int): The number of items per page (default is 10).
-        Returns:
-            List[list]: A list of rows corresponding to the requested page.
+        """Retrieves a page of data.
         """
-        dataset = self.dataset()  # Get the dateset
-
-        # Validate page
-        assert isinstance(page, int) and page > 0
-        # Validate page_size
-        assert isinstance(page_size, int) and page_size > 0
-
-        try:
-            # Get the start and end indexes
-            start_index, end_index = index_range(page, page_size)
-            return dataset[start_index:end_index]
-        except IndexError as e:
+        assert type(page) == int and type(page_size) == int
+        assert page > 0 and page_size > 0
+        start, end = index_range(page, page_size)
+        data = self.dataset()
+        if start > len(data):
             return []
+        return data[start:end]
