@@ -2,6 +2,10 @@
 
 """ Python script that contains function named index_range
 that takes two integer arguments page and page_size.
+Function returns a tuple of size two containing a start index
+and an end index corresponding to the range of indexes to return
+in a list for those particular pagination parameters.
+Page numbers are 1-indexed, i.e. the first page is page 1.
 """
 
 import csv
@@ -10,13 +14,13 @@ from typing import Tuple, List
 
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
-    """ Returns a tuple containing the start index and end index
-    for pagination.
+    """
+    Returns a tuple containing the start index and end index for pagination.
     Args:
         page (int): The current page number.
         page_size (int): The number of items per page.
     Returns:
-        tuple[int, int]: A table containing the start index and end index.
+        tuple[int, int]: A tuple containing the start index and end index.
     """
     start_index = (page - 1) * page_size
     end_index = start_index + page_size
@@ -43,15 +47,15 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """ Retrieve a page of data from dataset based on
-        pagination parameters.
+        """Retrieve a page of data from the dataset
+            based on pagination parameters.
         Args:
             page (int): The page number to retrieve (default is 1).
             page_size (int): The number of items per page (default is 10).
         Returns:
-            List[list]: A list of rows corresponding to the requested page.
+            List[List]: A list of rows corresponding to the requested page.
         """
-        dataset = self.dataset()  # Get the dateset
+        dataset = self.dataset()  # Get the dataset
 
         # Validate page
         assert isinstance(page, int) and page > 0
@@ -83,7 +87,7 @@ class Server:
             "page": page,
             "data": page_data,
             "next_page": page + 1 if page >= 0 else None,
-            "prev_page": page - 1 if page >= 0 else None,
+            "prev_page": page - 1 if page >= 1 else None,
             "total_pages": total_pages
         }
         return hyper_dict
