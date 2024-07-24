@@ -27,7 +27,7 @@ class LFUCache(BaseCaching):
         """
         if key is None or item is None:
             return
-        
+
         if key in self.cache_data:
             self.cache_data[key] = item
             self._update_frequency(key)
@@ -46,7 +46,7 @@ class LFUCache(BaseCaching):
         Get an item by key.
 
         Must return the value in self.cache_data linked to key.
-        If key is None or if the key doesn’t 
+        If key is None or if the key doesn’t
         exist in self.cache_data, return None.
         """
         if key is None or key not in self.cache_data:
