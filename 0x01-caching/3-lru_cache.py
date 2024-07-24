@@ -37,8 +37,9 @@ class LRUCache(BaseCaching):
 
     def get(self, key):
         """ Get an item by key.
-        return the value of the key that is required in O(1) and return -1 if the
-        key is not found, also move key to end as evidence it was recently used.
+        return the value of the key that is required in O(1)
+        and return -1 if the key is not found,
+        Also move key to end as evidence it was recently used.
         """
         if key is not None and key in self.cache_data:
             self.cache_data.move_to_end(key)
