@@ -1,13 +1,8 @@
-#!/usr/bin/env python3
-""" A Basic Flask app.
-"""
-from flask_babel import Babel, _
 from flask import Flask, render_template, request
+from flask_babel import Babel, _
 
 
 class Config:
-    """Represents a Flask Babel configuration.
-    """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
@@ -21,16 +16,18 @@ babel = Babel(app)
 
 @babel.localeselector
 def get_locale() -> str:
-    """ Use the request's accept language to select the best match.
-    """
+    """Check if the URL contains a 'locale' parameter."""
+    locale = request.args.get('locale')
+    if locale in app.config['LANGUAGES']:
+        return locale
+    # Fallback to the best match from accept_languages
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
 def index() -> str:
-    """The home/index page.
-    """
-    return render_template('3-index.html')
+    """The home/index page."""
+    return render_template('4-index.html')
 
 
 if __name__ == '__main__':
