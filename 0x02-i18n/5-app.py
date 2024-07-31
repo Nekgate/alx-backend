@@ -27,8 +27,7 @@ users = {
 
 
 def get_user() -> Union[Dict, None]:
-    """Function that returns a user ID or None if
-    the ID cannot be found or if login_as was not passed.
+    """Retrieves a user based on a user id.
     """
     login_id = request.args.get('login_as')
     if login_id:
@@ -38,10 +37,7 @@ def get_user() -> Union[Dict, None]:
 
 @app.before_request
 def before_request() -> None:
-    """Function that use the app.before_request decorator
-    to make it be executed before all other functions.
-    Before_request use get_user to find a user if any,
-    and set it as a global on flask.g.user.
+    """Performs some routines before each request's resolution.
     """
     user = get_user()
     g.user = user
@@ -49,7 +45,7 @@ def before_request() -> None:
 
 @babel.localeselector
 def get_locale() -> str:
-    """Retrieve the locale from URL parameter or accept_languages.
+    """Retrieves the locale for a web page.
     """
     locale = request.args.get('locale', '')
     if locale in app.config["LANGUAGES"]:
@@ -66,3 +62,4 @@ def get_index() -> str:
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+
