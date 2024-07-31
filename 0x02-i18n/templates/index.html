@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        {% if g.user %}
+            {% trans %}logged_in_as{% endtrans %} {{ g.user.name }}
+        {% else %}
+            {% trans %}not_logged_in{% endtrans %}
+        {% endif %}
+    </p>
+    <p>
+        {% trans %}current_time_is{% endtrans %} {{ current_time }}
+    </p>
+</body>
+</html>
